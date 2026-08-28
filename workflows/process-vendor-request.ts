@@ -8,31 +8,6 @@ import { saveDecision } from "./steps/save-decision";
 
 export async function processVendorRequest(requestId: string) {
   "use workflow";
-
-  const { record, reviewToken } = await loadRequest(requestId);
-  let result;
-  try {
-    result = await assessRequest(record);
-  } catch (error) {
-    await markAssessmentFailed(requestId);
-    throw error;
-  }
-
-  await saveAssessment(
-    requestId,
-    result.policy,
-    result.assessment,
-    result.model,
-    result.assessmentVersion
-  );
-
-  if (!result.policy.requiresHumanReview) {
-    return { requestId, status: "screened" as const };
-  }
-
-  using reviewHook = createHook<HumanDecision>({ token: reviewToken });
-  const decision = await reviewHook;
-  await saveDecision(requestId, decision);
-
-  return { requestId, status: decision.decision };
+  void requestId;
+  throw new Error("Implement the durable review in lesson 3.4");
 }

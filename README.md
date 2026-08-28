@@ -1,14 +1,12 @@
 # Enterprise Apps and Agents course project
 
-This `complete` branch is the canonical implementation for the Vercel Academy course **Enterprise Apps and Agents**. It demonstrates:
+This tagged tree is the unfinished implementation scaffold for the Vercel Academy course **Enterprise Apps and Agents**. It provides the request UI, database and identity adapters, evaluation runner, and fast tests. The learner still implements:
 
-- Deterministic cost and data-routing policy
-- Structured model assessment through AI Gateway
-- Separate persisted policy, model, and human evidence
-- Idempotent request creation
-- A durable Workflow SDK review process
-- An eve intake agent with one approval-gated tool and explicit stop conditions
-- A development-only identity adapter that is visibly unsafe for real deployment
+- Structured model assessment in `lib/ai.ts`
+- Deterministic routing in `lib/policy.ts`
+- A durable review in `workflows/process-vendor-request.ts`
+- One additional evaluation case
+- The eve intake agent copied later from `agent-start`
 
 It does not claim to configure enterprise identity, Connect, Secure Compute, or BYOC. The course teaches those as demonstrated, planned, conditional, or not applicable controls depending on the learner's environment.
 
@@ -25,22 +23,6 @@ pnpm dev
 ```
 
 `pnpm workflow:web` opens the local workflow dashboard.
-
-## Run the eve agent
-
-Keep `pnpm dev` running, then open a second terminal:
-
-```bash
-pnpm dev:agent
-```
-
-The agent gathers the four required request fields. Its only authored tool submits the request to Vendor Review, requires approval on every call, derives a replay-stable idempotency key, and returns the deterministic reviewer route. Shell, filesystem, web, and self-delegation tools are disabled.
-
-Inspect the compiled capability surface with `pnpm agent:info`. Run the approval-boundary eval with:
-
-```bash
-pnpm eval:agent request-review-pauses
-```
 
 ## Evaluation lab
 
@@ -63,8 +45,8 @@ authorization, repeated and conflicting decisions, and retry-key stability:
 pnpm test
 ```
 
-The completed course records live in `docs/`. They are honest reference answers,
-not claims about a learner's deployment.
+The templates in `docs/` belong to the learner's deployment. Completed reference
+answers live on `complete`.
 
 ## Identity boundary
 

@@ -1,21 +1,29 @@
 # Vendor Review model record
 
-This file is the release record format. Policy results below come from the credential-free suite. Run live model evaluations in your own environment before recording a model result.
+- AI task:
+- Assessment model:
+- Assessment version:
+- Data sent:
+- Approved providers:
+- Approved or denied models:
+- Retention requirement:
+- Prompt-training requirement:
+- Production authentication:
+- Local or external key owner:
+- Budget scope, limit, refresh period, and owner:
+- Behavior when Gateway policy blocks a request:
 
-- AI task: identify missing information, classify vendor category, suggest risk, and summarize for a reviewer
-- Assessment model: `openai/gpt-5.4-mini`
-- Assessment version: `vendor-assessment-v1`
-- Data sent: vendor name, business purpose, annual cost, and data types
-- Production authentication: Vercel OIDC
-- Local authentication: developer-owned AI Gateway key in `.env.local`
-- Provider and model policy: configure in AI Gateway for the learner's team
-- Retention and prompt-training policy: configure to match company requirements
-- Budget owner and limit: must be supplied before rollout
-- Blocked-request behavior: preserve the request and mark the assessment failed
+## Model comparison
+
+| Model | Output shape | Missing-information result | Latency | Token use and cost | Decision |
+|---|---|---|---|---|---|
+| | | | | | |
 
 ## Evaluation record
 
-- Deterministic policy: 12/12 checked-in cases expected to pass with `pnpm eval:policy`
-- Fast tests: policy thresholds, identity adapters, reviewer authorization, repeated and conflicting decisions, and retry-key stability
-- Live model result: run `pnpm eval` and record date, model, pass count, latency, and unresolved failures
-- Release decision: no broader rollout on the strength of the repository alone
+- Date:
+- Policy version and pass count:
+- Model and assessment version:
+- Model evaluation pass count:
+- Unresolved failures:
+- Release decision:
