@@ -7,7 +7,7 @@ This `complete` branch is the canonical implementation for the Vercel Academy co
 - Separate persisted policy, model, and human evidence
 - Idempotent request creation
 - A durable Workflow SDK review process
-- A bounded eve intake agent with one approval-gated tool
+- An eve intake agent with one approval-gated tool and explicit stop conditions
 - A development-only identity adapter that is visibly unsafe for real deployment
 
 It does not claim to configure enterprise identity, Connect, Secure Compute, or BYOC. The course teaches those as demonstrated, planned, conditional, or not applicable controls depending on the learner's environment.
@@ -55,6 +55,16 @@ pnpm eval         # policy checks plus live model assessments
 The live suite requires `AI_GATEWAY_API_KEY`. Model expectations allow bounded
 variation while still enforcing category/risk ranges, missing-information
 coverage, and forbidden injected language.
+
+Fast tests cover exact routing thresholds, identity adapters, reviewer
+authorization, repeated and conflicting decisions, and retry-key stability:
+
+```bash
+pnpm test
+```
+
+The completed course records live in `docs/`. They are honest reference answers,
+not claims about a learner's deployment.
 
 ## Identity boundary
 

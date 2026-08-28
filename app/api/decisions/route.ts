@@ -2,6 +2,7 @@ import { resumeHook } from "workflow/api";
 import { z } from "zod";
 import { getVerifiedPrincipal } from "@/lib/auth";
 import { getWorkflowInput } from "@/lib/db";
+import { evaluateDecisionAttempt } from "@/lib/decision";
 import type { HumanDecision } from "@/lib/types";
 
 const decisionSchema = z.object({
@@ -19,21 +20,34 @@ export async function POST(request: Request) {
       return Response.json({ error: "Request not found" }, { status: 404 });
     }
 
-    if (pending.record.decision) {
-      if (pending.record.decision.decision === input.decision) {
-        return Response.json({ ok: true, decision: pending.record.decision });
-      }
-      return Response.json({ error: "Request already has a different decision" }, { status: 409 });
-    }
-
-    if (pending.record.status !== "waiting_for_review" || !pending.record.policy) {
+    if (!pending.record.policy) {
       return Response.json({ error: "Request is not waiting for review" }, { status: 409 });
     }
 
-    const allowed = pending.record.policy.reviewerGroups.every((group) =>
-      principal.groups.includes(group)
-    );
-    if (!allowed) {
+    const gate = evaluateDecisionAttempt({
+      status: pending.record.status,
+      existingDecision: pending.record.decision,
+      requestedDecision: input.decision,
+      requiredGroups: pending.record.policy.reviewerGroups,
+      principalGroups: principal.groups,
+    });
+
+    if (gate.outcome === "duplicate") {
+      return Response.json({ ok: true, decision: gate.decision });
+    }
+    if (gate.outcome === "conflict") {
+      return Response.json(
+        { error: "Request already has a different decision" },
+        { status: 409 }
+      );
+    }
+    if (gate.outcome === "not_waiting") {
+      return Response.json(
+        { error: "Request is not waiting for review" },
+        { status: 409 }
+      );
+    }
+    if (gate.outcome === "unauthorized") {
       return Response.json({ error: "Reviewer is not authorized" }, { status: 403 });
     }
 

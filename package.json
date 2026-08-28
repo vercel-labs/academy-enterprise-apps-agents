@@ -10,6 +10,7 @@
     "dev:agent": "eve dev",
     "build": "next build",
     "start": "next start",
+    "test": "tsx --test tests/**/*.test.ts",
     "eval": "tsx scripts/run-evals.ts",
     "eval:policy": "tsx scripts/run-evals.ts --policy-only",
     "eval:agent": "eve eval",
