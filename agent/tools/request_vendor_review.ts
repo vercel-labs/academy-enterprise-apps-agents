@@ -24,9 +24,47 @@ export default defineTool({
     annualCost: z.number().nonnegative().max(100_000_000),
     dataTypes: z.array(z.enum(DATA_TYPES)).min(1),
   }),
-  async execute() {
-    throw new Error(
-      "Complete the approval gate and Vendor Review request submission"
-    );
+  approval: always(),
+  async execute(input, ctx) {
+    const appUrl = process.env.VENDOR_REVIEW_URL?.replace(/\/$/, "");
+    const requesterEmail = process.env.VENDOR_REVIEW_REQUESTER_EMAIL;
+
+    if (!appUrl || !requesterEmail) {
+      throw new Error(
+        "VENDOR_REVIEW_URL and VENDOR_REVIEW_REQUESTER_EMAIL must be configured"
+      );
+    }
+
+    const policy = routeByPolicy(input);
+    const response = await fetch(`${appUrl}/api/requests`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-demo-user-email": requesterEmail,
+        "x-demo-user-groups": "employee",
+      },
+      body: JSON.stringify({
+        ...input,
+        idempotencyKey: idempotencyKey(ctx.callId),
+      }),
+      signal: ctx.abortSignal,
+    });
+
+    if (!response.ok) {
+      const detail = await response.text();
+      throw new Error(
+        `Vendor Review rejected the request (${response.status}): ${detail}`
+      );
+    }
+
+    const record = responseSchema.parse(await response.json());
+
+    return {
+      requestId: record.id,
+      status: record.status,
+      policy,
+      decision: null,
+      note: "The request was created. No vendor decision was made.",
+    };
   },
 });

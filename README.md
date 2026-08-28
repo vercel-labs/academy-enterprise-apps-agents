@@ -1,17 +1,16 @@
 # Enterprise Apps and Agents course project
 
-The `agent-start` tag is the prepared starting point for the bounded intake-agent exercise. It includes:
+This `complete` branch is the canonical implementation for the Vercel Academy course **Enterprise Apps and Agents**. It demonstrates:
 
 - Deterministic cost and data-routing policy
 - Structured model assessment through AI Gateway
 - Separate persisted policy, model, and human evidence
 - Idempotent request creation
 - A durable Workflow SDK review process
-- Eve dependencies, runtime limits, and a one-tool capability surface
-- A request-tool scaffold and approval-boundary eval to complete
+- A bounded Eve intake agent with one approval-gated tool
 - A development-only identity adapter that is visibly unsafe for real deployment
 
-The `complete` branch contains the finished agent instructions and approval-gated request tool.
+It does not claim to configure enterprise identity, Connect, Secure Compute, or BYOC. The course teaches those as demonstrated, planned, conditional, or not applicable controls depending on the learner's environment.
 
 ## Run locally
 
@@ -26,6 +25,22 @@ pnpm dev
 ```
 
 `pnpm workflow:web` opens the local workflow dashboard.
+
+## Run the Eve agent
+
+Keep `pnpm dev` running, then open a second terminal:
+
+```bash
+pnpm dev:agent
+```
+
+The agent gathers the four required request fields. Its only authored tool submits the request to Vendor Review, requires approval on every call, derives a replay-stable idempotency key, and returns the deterministic reviewer route. Shell, filesystem, web, and self-delegation tools are disabled.
+
+Inspect the compiled capability surface with `pnpm agent:info`. Run the approval-boundary eval with:
+
+```bash
+pnpm eval:agent request-review-pauses
+```
 
 ## Evaluation lab
 
