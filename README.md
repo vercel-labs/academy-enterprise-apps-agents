@@ -8,7 +8,9 @@ This `main` branch is the stable starting point for the Vercel Academy course **
 - There is no durable human-review process
 - There is no application lifecycle record
 
-The finished reference lives on the [`complete`](https://github.com/vercel-labs/academy-enterprise-apps-agents/tree/complete) branch. Keep your course work on a separate branch so you can compare it with either state.
+The `implementation-start` tag contains the unfinished application scaffold used in chapter three. The finished reference lives on the [`complete`](https://github.com/vercel-labs/academy-enterprise-apps-agents/tree/complete) branch. Keep your course work on a separate branch so you can compare it with either state without replacing your work.
+
+The three files in `docs/` are course templates. They replace the pile of one-off planning documents that prototypes seem to collect when nobody is watching.
 
 ## Run the starter
 
