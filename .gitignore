@@ -3,4 +3,7 @@ node_modules
 .env*
 !.env.example
 .vercel
+/.swc
+.eve
+.output
 *.tsbuildinfo

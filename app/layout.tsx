@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Vendor Review",
-  description: "Internal software-vendor intake and assessment",
+  description: "Governed software-vendor intake and review",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
