@@ -1,15 +1,17 @@
 # Enterprise Apps and Agents course project
 
-This branch contains the governed Vendor Review reference application before the intake-agent exercise. It demonstrates:
+The `agent-start` tag is the prepared starting point for the bounded intake-agent exercise. It includes:
 
 - Deterministic cost and data-routing policy
 - Structured model assessment through AI Gateway
 - Separate persisted policy, model, and human evidence
 - Idempotent request creation
 - A durable Workflow SDK review process
+- Eve dependencies, runtime limits, and a one-tool capability surface
+- A request-tool scaffold and approval-boundary eval to complete
 - A development-only identity adapter that is visibly unsafe for real deployment
 
-The `agent-start` tag marks this exact checkpoint. The `complete` branch adds the bounded Eve intake agent.
+The `complete` branch contains the finished agent instructions and approval-gated request tool.
 
 ## Run locally
 
