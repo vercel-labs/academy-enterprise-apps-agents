@@ -7,7 +7,7 @@ This `complete` branch is the canonical implementation for the Vercel Academy co
 - Separate persisted policy, model, and human evidence
 - Idempotent request creation
 - A durable Workflow SDK review process
-- A bounded Eve intake agent with one approval-gated tool
+- A bounded eve intake agent with one approval-gated tool
 - A development-only identity adapter that is visibly unsafe for real deployment
 
 It does not claim to configure enterprise identity, Connect, Secure Compute, or BYOC. The course teaches those as demonstrated, planned, conditional, or not applicable controls depending on the learner's environment.
@@ -26,7 +26,7 @@ pnpm dev
 
 `pnpm workflow:web` opens the local workflow dashboard.
 
-## Run the Eve agent
+## Run the eve agent
 
 Keep `pnpm dev` running, then open a second terminal:
 
