@@ -56,6 +56,8 @@ The application collects a request, applies written cost and data rules, asks a 
 
 Vercel Authentication protects the lab. Passport with company identity groups is the planned employee-access control. Application authorization still checks reviewer groups for each decision.
 
+The lab stores one final decision and requires its demo reviewer to have every group named by policy. A company process that requires separate Procurement and Security approvals needs one recorded decision from each group before the workflow completes.
+
 ## Systems the application can reach
 
 | System | Purpose | Acting as | Permission | Environment | Revocation owner |

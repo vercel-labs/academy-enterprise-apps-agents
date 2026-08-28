@@ -52,7 +52,7 @@ pnpm eval:policy  # 12 deterministic checks; no credentials required
 pnpm eval         # policy checks plus live model assessments
 ```
 
-The live suite requires `AI_GATEWAY_API_KEY`. Model expectations allow bounded
+The live suite requires `AI_GATEWAY_API_KEY`. Model expectations allow reasonable
 variation while still enforcing category/risk ranges, missing-information
 coverage, and forbidden injected language.
 
