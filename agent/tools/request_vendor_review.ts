@@ -1,7 +1,7 @@
-import { createHash } from "node:crypto";
 import { defineTool } from "eve/tools";
 import { always } from "eve/tools/approval";
 import { z } from "zod";
+import { idempotencyKeyForToolCall } from "../../lib/idempotency";
 import { routeByPolicy } from "../../lib/policy";
 import { DATA_TYPES } from "../../lib/types";
 
@@ -9,11 +9,6 @@ const responseSchema = z.object({
   id: z.string(),
   status: z.string(),
 });
-
-function idempotencyKey(callId: string) {
-  const hex = createHash("sha256").update(callId).digest("hex");
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-4${hex.slice(13, 16)}-a${hex.slice(17, 20)}-${hex.slice(20, 32)}`;
-}
 
 export default defineTool({
   description:
@@ -45,7 +40,7 @@ export default defineTool({
       },
       body: JSON.stringify({
         ...input,
-        idempotencyKey: idempotencyKey(ctx.callId),
+        idempotencyKey: idempotencyKeyForToolCall(ctx.callId),
       }),
       signal: ctx.abortSignal,
     });
